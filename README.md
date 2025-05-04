@@ -24,5 +24,5 @@ This challenge is designed to assess ability to:
          
          • (Optional) Change the color scheme (will be visibile if you use sidebar() component)
          
-      7. Preview Your App
-      8. Get a Shareable Link
+      6. Preview Your App
+      7. Get a Shareable Link
