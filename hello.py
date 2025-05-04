@@ -1,27 +1,39 @@
-from preswald import text, plotly, connect, get_df, table
+from preswald import connect, get_df, table, text, plotly, sidebar
 import pandas as pd
 import plotly.express as px
 
-text("# Welcome to Preswald!")
-text("This is your first app. 🎉")
+#5. Customize the Branding
+sb = sidebar()
 
-# Load the CSV
-connect()
-df = get_df('sample_csv')
+# 1. Load the dataset
+connect()  # Initialize connection to preswald.toml data sources
+df = get_df('data/Google_Daily_News.csv')  # Load data
 
-# Create a scatter plot
-fig = px.scatter(df, x='quantity', y='value', text='item',
-                 title='Quantity vs. Value',
-                 labels={'quantity': 'Quantity', 'value': 'Value'})
+text("# Structured Labs Online Assessment")
+text("Google Daily News")
 
-# Add labels for each point
-fig.update_traces(textposition='top center', marker=dict(size=12, color='lightblue'))
+# 2. Query or manipulate the data
+if df is not None and not df.empty:
+    table(df, title="All Data")
 
-# Style the plot
-fig.update_layout(template='plotly_white')
+    # Filter for SeekingAlpha articles
+    filtered_df = df[df['source'].str.contains('SeekingAlpha', case=False, na=False)]
+    table(filtered_df, title="Only SeekingAlpha Articles" if not filtered_df.empty else "No results for SeekingAlpha in dataset")
 
-# Show the plot
-plotly(fig)
+# 3. Build an interactive UI
+# The bar chart allows interaction by clicking on sources
 
-# Show the data
-table(df)
+text("# Visualization")
+
+# 4. Create a visualization
+try:
+    company_counts = df['source'].value_counts().reset_index()
+    company_counts.columns = ['company', 'count']
+
+    fig = px.bar(company_counts, x="company", y="count", title="Top Sources by Article Count", color="company")
+    fig.update_xaxes(title="Company")
+    fig.update_yaxes(title="Number of Articles")
+    plotly(fig)
+except Exception as e:
+    text(f"Plot error: {e}")
+    

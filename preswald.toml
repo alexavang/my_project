@@ -1,19 +1,19 @@
 [project]
-title = "Preswald Project"
+title = "Structured Labs Online Assessment"
 version = "0.1.0"
 port = 8501
 slug = "my-project-553897"  
 entrypoint = "hello.py"    
 
 [branding]
-name = "Preswald Project"
+name = "Google Daily News"
 logo = "images/logo.png"
 favicon = "images/favicon.ico"
 primaryColor = "#F89613"
 
-[data.sample_csv]
+[data.Google_Daily_News_csv]
 type = "csv"
-path = "data/sample.csv"
+path = "data/Google_Daily_News_.csv"
 
 [logging]
 level = "INFO"  
